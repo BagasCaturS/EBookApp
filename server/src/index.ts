@@ -1,16 +1,23 @@
 import express from "express";
+import authRouter from '@/routes/auth';
 
 const app = express();
 
-const port = process.env.PORT || 5050;
+// app.use('/auth', (req, res, next) => {
+//     req.on('data', (chunk) => {
+//         req.body = JSON.parse(chunk.toString());
+//         next();
+//     })
+//     // console.log(req.body);
+// }, authRouter)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send('<h1>Hello World!</h1>')
-})
+app.use('/auth', authRouter);
 
-app.get('/login', (req, res) => {
-    res.send('<h1>Hello this is login page</h1>')
-})
+const port = process.env.PORT;
+
+
 
 app.listen(port, () => {
     console.log('app listening on port ' + port);
