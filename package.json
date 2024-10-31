@@ -1,0 +1,19 @@
+{
+  "name": "ebookapp",
+  "version": "1.0.0",
+  "description": "A book app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BagasCaturS/EBookApp.git"
+  },
+  "author": "Bagas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BagasCaturS/EBookApp/issues"
+  },
+  "homepage": "https://github.com/BagasCaturS/EBookApp#readme"
+}
