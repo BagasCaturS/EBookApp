@@ -1,4 +1,4 @@
-import exp from "constants";
+
 import { model, Schema } from "mongoose";
 
 const verificationTokenSchema = new Schema({

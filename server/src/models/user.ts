@@ -1,4 +1,4 @@
-import exp from "constants";
+
 import { model, Schema } from "mongoose";
 
 
@@ -6,7 +6,7 @@ const userSchema = new Schema({
     name: {
         type: String,
         trim: true,
-        required: true
+        // required: true
     },
     email: {
         type: String,
