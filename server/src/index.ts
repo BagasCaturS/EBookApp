@@ -1,6 +1,6 @@
 import express from "express";
 import authRouter from '@/routes/auth';
-
+import '@/db/connect';
 const app = express();
 
 // app.use('/auth', (req, res, next) => {
