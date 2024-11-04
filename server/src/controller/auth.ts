@@ -4,6 +4,7 @@ import verificationTokenModel from "@/models/verificationToken";
 import UserModel from "@/models/user";
 import nodemailer from "nodemailer";
 import { mail } from "@/utils/mail"
+import { sendErrorResponse } from "@/utils/helper";
 
 export const generateAuthLink: RequestHandler = async (req, res) => {
 
@@ -37,3 +38,36 @@ export const generateAuthLink: RequestHandler = async (req, res) => {
     res.json({ message: "check your email" })
 
 };
+
+export const verifyAuthToken: RequestHandler = async (req, res) => {
+    const { token, userId } = req.query
+
+    if (typeof token !== 'string' || typeof userId !== 'string') {
+        return sendErrorResponse({
+            status: 403,
+            message: "invalid request",
+            res
+        })
+    }
+    const verificationToken = await verificationTokenModel.findOne({ userId })
+    if (!verificationToken || !verificationToken.compare(token)) {
+        return sendErrorResponse({
+            status: 403,
+            message: "invalid resquest, token mismatch",
+            res
+        })
+    }
+    const user = await UserModel.findById(userId)
+    if(!user) {
+        return sendErrorResponse({
+            status: 500,
+            message: "Something went wrong, user not found",
+            res
+        })
+    }
+
+    await verificationTokenModel.findByIdAndDelete(verificationToken._id)
+
+    
+    res.json({})
+}
