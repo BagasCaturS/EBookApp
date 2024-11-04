@@ -1,6 +1,8 @@
-import express from "express";
+import express, {ErrorRequestHandler} from "express";
 import authRouter from '@/routes/auth';
 import '@/db/connect';
+import { errorHandler } from "./middleware/error";
+import 'express-async-errors';
 const app = express();
 
 // app.use('/auth', (req, res, next) => {
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/auth', authRouter);
+
+app.use(errorHandler)    
 
 const port = process.env.PORT;
 
