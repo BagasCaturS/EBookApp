@@ -4,7 +4,9 @@ import verificationTokenModel from "@/models/verificationToken";
 import UserModel from "@/models/user";
 import nodemailer from "nodemailer";
 import { mail } from "@/utils/mail"
-import { sendErrorResponse } from "@/utils/helper";
+import { formatUserProfile, sendErrorResponse } from "@/utils/helper";
+import jwt from "jsonwebtoken";
+import { strict } from "assert";
 
 export const generateAuthLink: RequestHandler = async (req, res) => {
 
@@ -58,7 +60,7 @@ export const verifyAuthToken: RequestHandler = async (req, res) => {
         })
     }
     const user = await UserModel.findById(userId)
-    if(!user) {
+    if (!user) {
         return sendErrorResponse({
             status: 500,
             message: "Something went wrong, user not found",
@@ -68,6 +70,34 @@ export const verifyAuthToken: RequestHandler = async (req, res) => {
 
     await verificationTokenModel.findByIdAndDelete(verificationToken._id)
 
-    
-    res.json({})
+    const payload = { userId: user.id }
+
+    const authToken = jwt.sign(payload, process.env.JWT_SECRET!, {
+        expiresIn: '15d'
+    });
+
+    res.cookie('authToken', authToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
+        expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+    });
+
+    // res.json({ authToken, message: "success" })
+
+
+    // res.redirect(`${process.env.AUTH_SUCCES_URL}?profile=${JSON.stringify(formatUserProfile(user))}`)
+
+    res.send()
+
+};
+
+export const sendProfileInfo : RequestHandler = (req, res) => {
+    res.json({
+        profile: req.user,
+    })
+}
+
+export const logout : RequestHandler = (req, res) => {
+res.clearCookie('authToken').send()
 }

@@ -3,18 +3,16 @@ import authRouter from '@/routes/auth';
 import '@/db/connect';
 import { errorHandler } from "./middleware/error";
 import 'express-async-errors';
+import cookieParser from "cookie-parser";
+
+
+
+
 const app = express();
 
-// app.use('/auth', (req, res, next) => {
-//     req.on('data', (chunk) => {
-//         req.body = JSON.parse(chunk.toString());
-//         next();
-//     })
-//     // console.log(req.body);
-// }, authRouter)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 app.use('/auth', authRouter);
 
 app.use(errorHandler)    
