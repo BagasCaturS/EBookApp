@@ -35,7 +35,7 @@ verificationTokenSchema.pre("save", function (next) {
     next()
 })
 
-verificationTokenSchema.methods.compare = function(token) {
+verificationTokenSchema.methods.compare = function (token) {
     return compareSync(token, this.token)
 }
 

@@ -16,6 +16,7 @@ declare global {
         }
     }
 }
+
 export const isAuth: RequestHandler = async (req, res, next) => {
     const auhtToken = req.cookies.authToken
     if (!auhtToken) {

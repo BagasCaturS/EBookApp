@@ -92,12 +92,12 @@ export const verifyAuthToken: RequestHandler = async (req, res) => {
 
 };
 
-export const sendProfileInfo : RequestHandler = (req, res) => {
+export const sendProfileInfo: RequestHandler = (req, res) => {
     res.json({
         profile: req.user,
     })
 }
 
-export const logout : RequestHandler = (req, res) => {
-res.clearCookie('authToken').send()
+export const logout: RequestHandler = (req, res) => {
+    res.clearCookie('authToken').send()
 }

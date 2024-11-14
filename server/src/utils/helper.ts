@@ -1,5 +1,5 @@
 import { UserDoc } from "@/models/user";
-import { Response } from "express"; 
+import { Response } from "express";
 
 type ErrorResponseType = {
     status: number;
@@ -7,7 +7,7 @@ type ErrorResponseType = {
     message: string;
 };
 
-export const sendErrorResponse = ( {res, message, status}: ErrorResponseType) => {
+export const sendErrorResponse = ({ res, message, status }: ErrorResponseType) => {
     res.status(status).json({ message })
 };
 

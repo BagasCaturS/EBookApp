@@ -5,7 +5,7 @@ import { StringValidation } from "zod";
 
 export interface UserDoc {
     _id: ObjectId;
-    email: string; 
+    email: string;
     role: "user" | "author";
     name?: string;
 }
