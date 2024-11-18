@@ -8,6 +8,8 @@ export interface UserDoc {
     email: string;
     role: "user" | "author";
     name?: string;
+    signedUp: boolean;
+    avatar?: {url: string; id: string }
 }
 
 const userSchema = new Schema<UserDoc>({
@@ -27,6 +29,15 @@ const userSchema = new Schema<UserDoc>({
         enum: ['user', 'author', 'admin'],
         default: 'user'
     },
+    signedUp:{
+        type: Boolean,
+        default: false
+    },
+    avatar: {
+        type: Object,
+        url: String,
+        id: String,
+    }
 });
 
 

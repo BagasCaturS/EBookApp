@@ -86,9 +86,9 @@ export const verifyAuthToken: RequestHandler = async (req, res) => {
     // res.json({ authToken, message: "success" })
 
 
-    // res.redirect(`${process.env.AUTH_SUCCES_URL}?profile=${JSON.stringify(formatUserProfile(user))}`)
+    res.redirect(`${process.env.AUTH_SUCCES_URL}?profile=${JSON.stringify(formatUserProfile(user))}`)
 
-    res.send()
+    // res.send()
 
 };
 
@@ -96,8 +96,17 @@ export const sendProfileInfo: RequestHandler = (req, res) => {
     res.json({
         profile: req.user,
     })
-}
+};
 
 export const logout: RequestHandler = (req, res) => {
     res.clearCookie('authToken').send()
-}
+};
+
+export const updateProfile: RequestHandler = async (req, res) => {
+    const user = await UserModel.findByIdAndUpdate(req.user.id, { name: req.body.name, signedUp: true }, {
+        new: true,
+    })
+    if (!user) return sendErrorResponse({ res, message: "User not found", status: 500 });
+
+    res.json({ profile: formatUserProfile(user) })
+};
