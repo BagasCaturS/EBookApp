@@ -7,6 +7,8 @@ import { mail } from "@/utils/mail"
 import { formatUserProfile, sendErrorResponse } from "@/utils/helper";
 import jwt from "jsonwebtoken";
 import { strict } from "assert";
+import cloudinary from "@/cloud/cloudinary";
+import { uploadAvatarToCloudinary } from "@/utils/fileUpload";
 
 export const generateAuthLink: RequestHandler = async (req, res) => {
 
@@ -107,6 +109,13 @@ export const updateProfile: RequestHandler = async (req, res) => {
         new: true,
     })
     if (!user) return sendErrorResponse({ res, message: "User not found", status: 500 });
+
+    const file = req.files.avatar;
+
+    if (!Array.isArray(file)) {
+        user.avatar = await uploadAvatarToCloudinary(file, user.avatar?.id)
+        await user.save();
+    }
 
     res.json({ profile: formatUserProfile(user) })
 };
