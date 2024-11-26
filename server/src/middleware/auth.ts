@@ -12,7 +12,8 @@ declare global {
                 name?: string;
                 email: string;
                 role: 'user' | 'author';
-            }
+                avatar?: string;
+            };
         }
     }
 }

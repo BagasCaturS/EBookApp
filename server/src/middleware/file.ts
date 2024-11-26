@@ -5,7 +5,9 @@ import formidable, { File } from "formidable";
 
 declare global {
     namespace Express {
-        export interface Request { files: Record<string, File | File[]>; }
+        export interface Request { files: Record<string, File | File[]> | undefined; 
+            
+        }
     }
 }
 

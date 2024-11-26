@@ -2,7 +2,7 @@ import cloudinary from "@/cloud/cloudinary";
 import { Request } from "express";
 import { File } from "formidable";
 
-export const uploadAvatarToCloudinary = async (
+export const updateAvatarToCloudinary = async (
     file: File,
     avatarId?: string
 ) => {
