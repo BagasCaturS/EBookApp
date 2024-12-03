@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/auth', authRouter);
-app.use('/auth', authorRouter);
+app.use('/author', authorRouter);
 
 app.post('/test', fileParser, (req, res) => {
     console.log(req.files);
