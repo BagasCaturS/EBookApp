@@ -61,7 +61,7 @@ const bookSchema = new Schema<BookDoc>({
         trim: true,
     },
     publishedAt: {
-        type: String,
+        type: Date,
         required: true,
     },
     price: {
