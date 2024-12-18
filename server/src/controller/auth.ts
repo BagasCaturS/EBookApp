@@ -112,6 +112,7 @@ export const updateProfile: RequestHandler = async (req, res) => {
 
     const file = req.files.avatar;
 
+    // pada bagian di bawah akan melakukan pengecekan apakah file ada dan bukan array
     if (file && !Array.isArray(file)) {
         user.avatar = await updateAvatarToCloudinary(file, user.avatar?.id)
         await user.save();
